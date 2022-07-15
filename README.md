@@ -5,8 +5,8 @@ Gerador de número de aposta, para esse problema como entrada o apostador irá p
 * O usuário solicita a quantidade de apostas
 * Cada aposta deve conter 5 números 
 * Numeros de 01 a 60
-* Em ordem crescente
 * E sem repetição
+* Em ordem crescente
 
 ## Ferramentas/Bibliotecas e Métodos
 * Python
