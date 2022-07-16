@@ -6,48 +6,62 @@ de 01 a 60"""
 
 import random
 
-# Quantidade de Jogo
 quant = int(input("Quantos Jogos: "))
-
 num_aposta = {}
 
-'''
-# Gera 5 digítos aleatórios de 1 e 60
--> Enquanto valor < 5:
-     cria um  número aleatório e adiciona a lista valor e atribui +1 ao contador
-     
--> Se o valor cont for o segundo valor:
-    gero um número randômico e caso esse numero seja diferir ao anterior é adicionado a lista
-    a função retorna os valores em ordem crescente
-'''
-def gera_numero():
-    valor = []
-    cont = 1
-    while len(valor) < 5:
-        if cont == 1 :
-            numero = ((random.randrange(1, 60, 1)))
-            valor.append(numero)
-            cont +=1
-        #print(f'contador: {cont}')
-        if cont > 1:
-            numero = ((random.randrange(1, 60, 1)))
-            print(f'contador: {cont}')
+'''Função que gera valores aleatores'''
+def gerador_numero():
+    """"Função que gera valor aleatorio de 1 a 60"""
+    random_num = ((random.randrange(1, 60, 1)))
+    return random_num
 
-            if valor[cont-2] != numero:
-                print(valor[cont-2])
-                valor.append(numero)
+'''Remover valor repetidos da lista'''
+def remove_repetidos(lista):
+    l = []
+    for i in lista:
+        if i not in l:
+            l.append(i)
+    l.sort()
+    return l
 
-    valor_ordenado = sorted(valor)
+'''Função que gera uma lista com 5 valores aleatores'''
+def gerador_de5_aposta():
+    vect_num_apost = [] # Vector para guardar os numero de aposta
+
+    # Cria primeiro valor da lista
+    numero = (gerador_numero())
+    vect_num_apost.append(numero)
+
+    # Enquanto a lista for meno que 5
+    while len(vect_num_apost) < 5:
+        #Gera numero
+        numero = (gerador_numero())
+        vect_num_apost.append(numero)
+
+        #removendo valor repetido da lista
+        vect_num_apost = remove_repetidos(vect_num_apost)
+    # ordenar em ordem cresente
+    valor_ordenado = sorted(vect_num_apost)
     return valor_ordenado
 
 
-# Criar dicionario com os 5 numeros usando o id da repetição quant
-for id in range(quant):
-    new_numero = gera_numero()
-    if id == 0:
-        num_aposta = {id+1: new_numero}
-    else:
-        num_aposta[id + 1] = new_numero
+
+'''Criar dicionario com os 5 numeros usando o id da repetição quant'''
+def criar_dicionario_aposta(quant):
+    for id in range(quant):
+        new_num_apost = gerador_de5_aposta()
+        if id == 0:
+            # Cria dicionario
+            num_aposta = {id + 1: new_num_apost}
+        else:
+            # Atribui valor ao dicionario
+            num_aposta[id + 1] = new_num_apost
+        # Retorna o
+    return num_aposta
+
+# Cria dicionario com as apostas
+num_aposta = criar_dicionario_aposta(quant)
+
 
 # Imprime os valores
 for i in num_aposta:
